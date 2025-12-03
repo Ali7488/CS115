@@ -20,43 +20,83 @@ using namespace std;
     in the source file, the header file would be included at the top using #include "headerfile.h", and the member functions would be defined using the scope resolution operator (::) to specify that they belong to the class
 
     e.g. void Student::setName(string newName) { name = newName; }
+
+    also has examples of function overloading with operator functions, this is for MEMBER overloading ONLY
+
+    for nonmember loading it is done OUTSIDE the class declaration, and would have 2 parameters
 */
 
-class Student //class declaration
+class Student // class declaration
 {
-private: 
-    //private access specifier and private variables 
+private:
+    // private access specifier and private variables
     string name;
     int id;
     double grade;
 
 public:
-    Student() : name(""), id(0), grade(0) { cout << "default constructor called"; } //default constructor
+    Student() : name(""), id(0), grade(0) { cout << "default constructor called"; } // default constructor
 
-    Student(string newName, int newID, int newGrade) : name(newName), id(newID), grade(newGrade) { cout << "parameterized constructor called"; } //parameterized constructor
+    Student(string newName, int newID, int newGrade) : name(newName), id(newID), grade(newGrade) { cout << "parameterized constructor called"; } // parameterized constructor
 
-    Student(const Student& other) : name(other.name), id(other.id), grade(other.grade) { cout << "copy constructor called"; } //copy constructor
+    Student(const Student &other) : name(other.name), id(other.id), grade(other.grade) { cout << "copy constructor called"; } // copy constructor
 
-    //setter method functions, used to set private variables to new values 
-    void setName(string newName) { name = newName; } 
-    void setId(int newID) { id = newID; }   
+    // setter method functions, used to set private variables to new values
+    void setName(string newName) { name = newName; }
+    void setId(int newID) { id = newID; }
     void setGrade(double newGrade) { grade = newGrade; }
 
-    //getter method functions, used to get the values of private variables when outside the class
+    // getter method functions, used to get the values of private variables when outside the class
     string getName() const { return name; }
     int getID() const { return id; }
     double getGrade() const { return grade; }
 
-    //member function to display student info
+    // member function to display student info
     void print() const
     {
         cout << "Name: " << name << ", ID: " << id << ", Grade: " << grade << endl;
     }
-};
 
-//non member function that takes a Student object as a parameter
-void printHonorStatus(const Student& s){
-    if(s.getGrade() >= 90){
+    /*===========Function Overloading============*/
+    // overloaded equality operator, checks ID parameters of student 1 and student 2 are equal, if so returns true
+    bool operator==(const Student &other) const
+    {
+        return id == other.id;
+    }
+
+    // compares grades of student 1 to student 2, returns true if student 1's grade is less than student 2's grade
+    bool operator<(const Student &other) const
+    {
+        return grade < other.grade;
+    }
+};
+// uses the overloaded operators to compare two students
+void compareStudents(const Student &a, const Student &b)
+{
+    if (a == b)
+    {
+        cout << a.getName() << " and " << b.getName() << " have the same ID." << endl;
+    }
+    else
+    {
+        cout << a.getName() << " and " << b.getName() << " have different IDs." << endl;
+    }
+
+    if (a < b)
+    {
+        cout << a.getName() << " has a lower grade than " << b.getName() << "." << endl;
+    }
+    else
+    {
+        cout << a.getName() << " has a higher or equal grade than " << b.getName() << "." << endl;
+    }
+}
+
+// non member function that takes a Student object as a parameter
+void printHonorStatus(const Student &s)
+{
+    if (s.getGrade() >= 90)
+    {
         cout << s.getName() << " is an honor student with a grade of " << s.getGrade() << endl;
     }
 }
@@ -92,6 +132,12 @@ int main()
     {
         printHonorStatus(students[i]);
     }
+
+    cout << "=== Comparing A and B ===\n";
+    compareStudents(students[0], students[1]);
+
+    cout << "\n=== Comparing A and C (identical) ===\n";
+    compareStudents(students[0], students[1]);
 
     return 0;
 }
