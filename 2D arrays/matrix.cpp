@@ -5,7 +5,7 @@ using namespace std;
 const int MAX_STUDENTS = 100;
 const int MAX_ASSIGNMENTS = 10;
 /*
-This program is testing 2D arrays, these functions all interact with teh 2D array.
+This program is testing 2D arrays, these functions all interact with the 2D array.
 note that these arrays are NOT dynamic, thats why we have the constants in the top of the file
 remember to always pass the columns when passing an array to a function (see all my arrays passed in functions)
 these are quite basic and easy, one last thing to note just incase he asks about it
