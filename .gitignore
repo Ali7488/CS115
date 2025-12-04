@@ -1,2 +1,13 @@
 *.exe
 *.txt
+*.out
+*.obj
+*.o
+*.log
+*.class
+*.jar
+*.pyc
+.DS_Store
+.vscode/
+
+
