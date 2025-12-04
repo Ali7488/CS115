@@ -70,6 +70,33 @@ public:
         return grade < other.grade;
     }
 };
+
+//* THIS IS AN EXAMPLE OF INHERITANCE *//
+//* graduate class inherits from Student class *//
+
+class graduate : public Student // derived class : public base class
+{
+private:
+    bool isThesisCompleted; // additional private variable for graduate class
+
+public:
+    // constructors
+    graduate() : Student(), isThesisCompleted(false) {} // default constructor. calls base class default constructor
+
+    graduate(string newName, int newID, int newGrade, bool thesisStatus) : Student(newName, newID, newGrade), isThesisCompleted(thesisStatus) {} // parameterized constructor. calls base class parameterized constructor
+
+    // setter and getter for new variable
+    void setThesisStatus(bool status) { isThesisCompleted = status; }
+    bool getThesisStatus() const { return isThesisCompleted; }
+
+    // overridden print function to include thesis status
+    void print() const
+    {
+        Student::print();
+        cout << "Thesis Completed: " << (isThesisCompleted ? "Yes" : "No") << endl;
+    }
+};
+
 // uses the overloaded operators to compare two students
 void compareStudents(const Student &a, const Student &b)
 {
@@ -138,6 +165,11 @@ int main()
 
     cout << "\n=== Comparing A and C (identical) ===\n";
     compareStudents(students[0], students[1]);
+
+    // Create a graduate student
+    graduate gradStudent("Mia", 201, 95.0, true);
+    cout << "\n=== Graduate Student Record ===\n";
+    gradStudent.print();
 
     return 0;
 }
